@@ -27,7 +27,8 @@ def domainr(environment):
         url = "http://domai.nr/api/json/info"
     else:
         url = "http://domai.nr/api/json/search"
-    json_data = requests.get(url, params={'q': environment.query})
+    query = " ".join(environment.query)
+    json_data = requests.get(url, params={'q': query})
     data = parse(json_data.content, environment.info)
     return data
 
