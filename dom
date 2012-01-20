@@ -43,11 +43,11 @@ def parse(content, info):
         for domain in results:
             name = domain['domain']
             availability = domain['availability']
-            if availability == 'taken':
-                symbol = colored(u"\u2717", 'red')
-            else:
+            if availability == 'available':
                 name = colored(name, 'blue', attrs=['bold'])
                 symbol = colored(u"\u2713", 'green')
+            else:
+                symbol = colored(u"\u2717", 'red')
             string = "%s  %s" % (symbol, name)
             output.append(string)
         return '\n'.join(output)
