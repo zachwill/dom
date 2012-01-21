@@ -2,7 +2,7 @@ dom
 ===
 
 An easy-to-use command line utility for checking domain name
-availability.
+availability using [Domainr's JSON API](http://domai.nr/api/docs/json).
 
 ![Picture of dom in action](https://img.skitch.com/20120120-n415kiwm3ge9erjxkniwhsquhm.png)
 
