@@ -10,6 +10,9 @@ setup(
     author_email="hey@zachwill.com",
     url="http://github.com/zachwill/dom",
     license="MIT",
+    packages=[
+        "domainr"
+    ],
     scripts=[
         "dom"
     ],
