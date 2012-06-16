@@ -4,7 +4,7 @@ dom
 An easy-to-use command line utility for checking domain name
 availability using [Domainr's JSON API](http://domai.nr/api/docs/json).
 
-![Picture of dom in action](https://img.skitch.com/20120121-cu1bu1pur9xr49xy2qtjxwb1gf.png)
+![](http://i.imgur.com/oijaG.png)
 
 
 Installation
