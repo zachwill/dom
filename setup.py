@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="dom",
-    version="0.2",
+    version="0.2.1",
     description="An easy-to-use command line utility for domain name lookups.",
     author="Zach Williams",
     author_email="hey@zachwill.com",
@@ -34,6 +34,7 @@ setup(
     install_requires=[
         "mock",
         "requests",
+        "simplejson",
         "termcolor"
     ]
 )
