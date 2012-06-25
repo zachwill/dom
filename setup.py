@@ -31,8 +31,8 @@ setup(
     scripts=[
         "dom"
     ],
+    tests_require=['mock'],
     install_requires=[
-        "mock",
         "requests",
         "simplejson",
         "termcolor"
