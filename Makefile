@@ -1,0 +1,2 @@
+travis:
+		python test.py	
