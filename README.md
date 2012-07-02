@@ -1,5 +1,6 @@
 dom
 ===
+[![Build Status](https://secure.travis-ci.org/myusuf3/dom.png?branch=master)](http://travis-ci.org/myusuf3/dom)
 
 An easy-to-use command line utility for checking domain name
 availability using [Domainr's JSON API](http://domai.nr/api/docs/json).
