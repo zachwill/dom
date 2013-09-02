@@ -4,14 +4,13 @@ from setuptools import setup
 
 setup(
     name="dom",
-    version="0.3",
+    version="0.4",
     description="An easy-to-use command line utility for domain name lookups.",
     author="Zach Williams",
     author_email="hey@zachwill.com",
     url="http://github.com/zachwill/dom",
     license="MIT",
     classifiers=[
-        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: End Users/Desktop',
