@@ -29,19 +29,36 @@ The optional `--ascii` flag can be used to look up domain availability without
 the use of the Unicode characters.
 
 ```
-dom -a zachwill
+dom --ascii zachwill
 
 X  zachwill.com
 A  zachwill.net
 A  zachwill.org
 A  zachwill.co
-A  zachwill.io
-A  zachwill.me
-A  zachwill.info
-X  za
-X  zachw.il
 X  za.ch
 X  z.ac
+```
+
+The `--available` flag only shows domain names that are currently available:
+
+```
+dom --available zachwill
+
+✓  zachwill.net
+✓  zachwill.org
+✓  zachwill.co
+✓  zachwill.io
+✓  zachwill.me
+```
+
+And, the `--tld` flag only shows top-level domains:
+
+```
+dom --tld zachwill
+
+✗  zachwill.com
+✓  zachwill.net
+✓  zachwill.org
 ```
 
 
