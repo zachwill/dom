@@ -19,6 +19,8 @@ class Domain(object):
                             help="Your domain name query.")
         parser.add_argument('-i', '--info', action='store_true',
                             help="Get information for a domain name.")
+        parser.add_argument('-a', '--ascii', action='store_true',
+                            help="Use ASCII characters for domain availability.")
         args = parser.parse_args()
         return args
 
@@ -30,13 +32,13 @@ class Domain(object):
             url = "http://domai.nr/api/json/search"
         query = " ".join(environment.query)
         json_data = requests.get(url, params={'q': query})
-        data = self.parse(json_data.content, environment.info)
+        data = self.parse(json_data.content, environment)
         return data
 
-    def parse(self, content, info):
+    def parse(self, content, environment):
         """Parse the relevant data from JSON."""
         data = json.loads(content)
-        if not info:
+        if not environment.info:
             # Then we're dealing with a domain name search.
             output = []
             results = data['results']
@@ -46,8 +48,12 @@ class Domain(object):
                 if availability == 'available':
                     name = colored(name, 'blue', attrs=['bold'])
                     symbol = colored(u"\u2713", 'green')
+                    if environment.ascii:
+                        symbol = colored('A', 'green')
                 else:
                     symbol = colored(u"\u2717", 'red')
+                    if environment.ascii:
+                        symbol = colored('X', 'red')
                 string = "%s  %s" % (symbol, name)
                 output.append(string)
             return '\n'.join(output)

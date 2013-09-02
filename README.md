@@ -22,6 +22,29 @@ Or, if you'd prefer to clone the repo, run the following command:
     python setup.py install
 
 
+Optional Flags
+--------------
+
+The optional `--ascii` flag can be used to look up domain availability without
+the use of the Unicode characters.
+
+```
+dom -a zachwill
+
+X  zachwill.com
+A  zachwill.net
+A  zachwill.org
+A  zachwill.co
+A  zachwill.io
+A  zachwill.me
+A  zachwill.info
+X  za
+X  zachw.il
+X  za.ch
+X  z.ac
+```
+
+
 Deploying
 ---------
 
