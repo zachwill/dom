@@ -35,7 +35,7 @@ class Domain(object):
         else:
             url = "https://domai.nr/api/json/search"
         query = " ".join(env.query)
-        json_data = requests.get(url, params={'q': query})
+        json_data = requests.get(url, params={'q': query, 'client_id': 'python_zachwill'})
         data = self.parse(json_data.content, env)
         return data
 
