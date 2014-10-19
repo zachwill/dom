@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="dom",
-    version="0.5",
+    version="0.6",
     description="An easy-to-use command line utility for domain name lookups.",
     author="Zach Williams",
     author_email="hey@zachwill.com",
