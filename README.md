@@ -1,9 +1,10 @@
 dom
 ===
+
 [![Build Status](https://secure.travis-ci.org/myusuf3/dom.png?branch=master)](http://travis-ci.org/myusuf3/dom)
 
 An easy-to-use command line utility for checking domain name
-availability using [Domainr's JSON API](https://domainr.com/api/docs/json).
+availability using [Domainr's JSON API](https://github.com/domainr/api/wiki/V1-API).
 
 ![](http://i.imgur.com/oijaG.png)
 
