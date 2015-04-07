@@ -31,9 +31,9 @@ class Domain(object):
     def search(self, env):
         """Use domainr to get information about domain names."""
         if env.info:
-            url = "https://domainr.com/api/json/info"
+            url = "https://api.domainr.com/v1/info"
         else:
-            url = "https://domainr.com/api/json/search"
+            url = "https://api.domainr.com/v1/search"
         query = " ".join(env.query)
         json_data = requests.get(url, params={'q': query, 'client_id': 'python_zachwill'})
         data = self.parse(json_data.content, env)
