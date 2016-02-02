@@ -1,3 +1,4 @@
+configparser
 mock
 requests
 simplejson

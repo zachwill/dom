@@ -32,6 +32,7 @@ setup(
     ],
     tests_require=['mock'],
     install_requires=[
+        "configparser",
         "requests",
         "simplejson",
         "termcolor"
