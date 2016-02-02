@@ -27,6 +27,9 @@ setup(
     packages=[
         "domainr"
     ],
+    package_data = {
+        'domainr': ['domainr.ini']
+    },
     scripts=[
         "dom"
     ],

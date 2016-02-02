@@ -4,6 +4,7 @@ Core functionality for Domainr.
 
 from argparse import ArgumentParser
 import configparser
+import pkg_resources
 import requests
 import simplejson as json
 import sys
@@ -40,7 +41,7 @@ class Domain(object):
 
         # Try and get the API key from the config file
         config = configparser.ConfigParser()
-        config.read('config/domainr.ini')
+        config.read(pkg_resources.resource_filename('domainr', 'domainr.ini'))
     
         if config['Default']['mashape-key']:
             params['mashape-key'] = config['Default']['mashape-key']
