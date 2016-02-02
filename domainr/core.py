@@ -32,10 +32,7 @@ class Domain(object):
 
     def search(self, env):
         """Use domainr to get information about domain names."""
-        if env.info:
-            url = "https://domainr.p.mashape.com/v1/info"
-        else:
-            url = "https://domainr.p.mashape.com/v1/search"
+        
         query = " ".join(env.query)
         params = {'q': query}
 
@@ -46,14 +43,22 @@ class Domain(object):
     
         if config['Default']['mashape-key']:
             params['mashape-key'] = config['Default']['mashape-key']
+            url = "https://domainr.p.mashape.com"
         elif config['Default']['client_id']:
             params['client_id'] = config['Default']['client_id']
+            url = "https://api.domainr.com"
         else:
             sys.exit("Error: No API key provided in config file at:\n"
                 + "{0}\n".format(configFilename) 
                 + "See the README for more info")
 
+        if env.info:
+            url += "/v1/info"
+        else:
+            url += "/v1/search"
+
         json_data = requests.get(url, params=params)
+        # print(json_data.url)
 
         if not json_data.status_code == 200:
             return "Error: Status {0}; Response: {1}".format(json_data.status_code, json_data._content)
