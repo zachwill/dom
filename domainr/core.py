@@ -41,14 +41,17 @@ class Domain(object):
 
         # Try and get the API key from the config file
         config = configparser.ConfigParser()
-        config.read(pkg_resources.resource_filename('domainr', 'domainr.ini'))
+        configFilename = pkg_resources.resource_filename('domainr', 'domainr.ini')
+        config.read(configFilename)
     
         if config['Default']['mashape-key']:
             params['mashape-key'] = config['Default']['mashape-key']
         elif config['Default']['client_id']:
             params['client_id'] = config['Default']['client_id']
         else:
-            sys.exit("Error: No API key provided, see the README for more info")
+            sys.exit("Error: No API key provided in config file at:\n"
+                + "{0}\n".format(configFilename) 
+                + "See the README for more info")
 
         json_data = requests.get(url, params=params)
 
