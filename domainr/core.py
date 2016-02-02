@@ -3,9 +3,10 @@ Core functionality for Domainr.
 """
 
 from argparse import ArgumentParser
-
+import configparser
 import requests
 import simplejson as json
+import sys
 from termcolor import colored
 
 
@@ -31,11 +32,23 @@ class Domain(object):
     def search(self, env):
         """Use domainr to get information about domain names."""
         if env.info:
-            url = "https://api.domainr.com/v1/info"
+            url = "https://domainr.p.mashape.com/v1/info"
         else:
-            url = "https://api.domainr.com/v1/search"
+            url = "https://domainr.p.mashape.com/v1/search"
         query = " ".join(env.query)
-        json_data = requests.get(url, params={'q': query, 'client_id': 'python_zachwill'})
+        params = {'q': query}
+
+        # Try and get the API key from the config file
+        config = configparser.ConfigParser()
+        config.read('config/domainr.ini')
+    
+        if 'mashape-key' in config['Default']:
+            params{'mashape-key': config['Default']['mashape-key']}
+        elif 'client_id' in config['Default']:
+            params{'client_id': config['Default']['client_id']}
+        else:
+            sys.exit("Error: No API key provided")
+        json_data = requests.get(url, params=params)
         data = self.parse(json_data.content, env)
         return data
 
