@@ -42,16 +42,14 @@ class Domain(object):
         config = configparser.ConfigParser()
         config.read('config/domainr.ini')
     
-        if 'mashape-key' in config['Default']:
+        if config['Default']['mashape-key']:
             params['mashape-key'] = config['Default']['mashape-key']
-        elif 'client_id' in config['Default']:
+        elif config['Default']['client_id']:
             params['client_id'] = config['Default']['client_id']
         else:
-            sys.exit("Error: No API key provided")
+            sys.exit("Error: No API key provided, see the README for more info")
 
         json_data = requests.get(url, params=params)
-
-        print(json_data.url)
 
         if not json_data.status_code == 200:
             return "Error: Status {0}; Response: {1}".format(json_data.status_code, json_data._content)
