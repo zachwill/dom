@@ -43,14 +43,23 @@ class Domain(object):
         config.read('config/domainr.ini')
     
         if 'mashape-key' in config['Default']:
-            params{'mashape-key': config['Default']['mashape-key']}
+            params['mashape-key'] = config['Default']['mashape-key']
         elif 'client_id' in config['Default']:
-            params{'client_id': config['Default']['client_id']}
+            params['client_id'] = config['Default']['client_id']
         else:
             sys.exit("Error: No API key provided")
+
         json_data = requests.get(url, params=params)
+
+        print(json_data.url)
+
+        if not json_data.status_code == 200:
+            return "Error: Status {0}; Response: {1}".format(json_data.status_code, json_data._content)
         data = self.parse(json_data.content, env)
-        return data
+        if not data:
+            return "No results found\n"
+        else:
+            return data
 
     def parse(self, content, env):
         """Parse the relevant data from JSON."""
@@ -93,4 +102,4 @@ class Domain(object):
 
     def main(self):
         args = self.environment()
-        print self.search(args)
+        print(self.search(args))
