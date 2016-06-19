@@ -59,9 +59,11 @@ class Domain(object):
         data = json.loads(content)
         results = data['results']
         if env.tld:
-            return [result['domain'] for result in results if self._tld_check(result['domain'])].sort()
+            output = [result['domain'] for result in results if self._tld_check(result['domain'])]
         else:
-            return [result['domain'] for result in results].sort()
+            output = [result['domain'] for result in results]
+        output.sort()
+        return output
 
     def parse_status(self, content, env):
         """Parse the relevant data from JSON."""
@@ -85,6 +87,7 @@ class Domain(object):
                     symbol = colored('X', 'red')
             string = "%s  %s" % (symbol, name)
             output.append(string)
+        output.sort()
         return output
 
     def _tld_check(self, name):
@@ -98,5 +101,5 @@ class Domain(object):
         if not args.no_suggest:
             args.query = self.search(args)
         status = self.status(args)
-        status.sort()
+        print '\n'.join(status)
 
