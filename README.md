@@ -4,7 +4,8 @@ dom
 [![Build Status](https://secure.travis-ci.org/myusuf3/dom.png?branch=master)](http://travis-ci.org/myusuf3/dom)
 
 An easy-to-use command line utility for checking domain name
-availability using [Domainr's JSON API](https://github.com/domainr/api/wiki/V1-API).
+availability using
+[Domainr's JSON API](https://market.mashape.com/domainr/domainr V2 API).
 
 ![](http://i.imgur.com/oijaG.png)
 
@@ -50,6 +51,14 @@ dom --available zachwill
 ✓  zachwill.co
 ✓  zachwill.io
 ✓  zachwill.me
+```
+
+The `--no-suggest` flag only check the exact domain names that are in query:
+
+```
+dom --no-suggest zachwill.com
+
+✗  zachwill.com
 ```
 
 And, the `--tld` flag only shows top-level domains:

@@ -4,10 +4,13 @@ Core functionality for Domainr.
 
 from argparse import ArgumentParser
 
+import os
 import requests
 import simplejson as json
 from termcolor import colored
 
+
+mashape_key = os.getenv('MASHAPE_KEY')
 
 class Domain(object):
     """Main class for interacting with the domains API."""
@@ -16,61 +19,73 @@ class Domain(object):
         """Parse any command line arguments."""
         parser = ArgumentParser()
         parser.add_argument('query', type=str, nargs='+',
-                            help="Your domain name query.")
-        parser.add_argument('-i', '--info', action='store_true',
-                            help="Get information for a domain name.")
+                            help="Your domain name query. With --no-suggest, must give full domain in query.")
         parser.add_argument('--ascii', action='store_true',
                             help="Use ASCII characters for domain availability.")
         parser.add_argument('--available', action='store_true',
                             help="Only show domain names that are currently available.")
         parser.add_argument('--tld', action='store_true',
                             help="Only check for top-level domains.")
+        parser.add_argument('--no-suggest', action='store_true',
+                            help="No suggested domains.")
         args = parser.parse_args()
         return args
 
     def search(self, env):
         """Use domainr to get information about domain names."""
-        if env.info:
-            url = "https://api.domainr.com/v1/info"
-        else:
-            url = "https://api.domainr.com/v1/search"
-        query = " ".join(env.query)
-        json_data = requests.get(url, params={'q': query, 'client_id': 'python_zachwill'})
-        data = self.parse(json_data.content, env)
+        url = "https://domainr.p.mashape.com/v2/search"
+        query = env.query
+        defaults = "club,co,im,ink,me,men,online,run,show,tech"
+        location = "cn"
+        registrar = "name.com"
+        data = []
+        for q in query:
+            json_data = requests.get(url, params={'query': q, 'mashape-key': mashape_key,
+                                                  'defaults': defaults, 'location': location, 'registrar': registrar})
+            data.extend(self.parse_search(json_data.content, env))
+
         return data
 
-    def parse(self, content, env):
+    def status(self, env):
+        """Use domainr to get information about domain names."""
+        url = "https://domainr.p.mashape.com/v2/status"
+        query = ",".join(env.query)
+        json_data = requests.get(url, params={'domain': query, 'mashape-key': mashape_key})
+        data = self.parse_status(json_data.content, env)
+        return data
+
+    def parse_search(self, content, env):
         """Parse the relevant data from JSON."""
         data = json.loads(content)
-        if not env.info:
-            # Then we're dealing with a domain name search.
-            output = []
-            results = data['results']
-            for domain in results:
-                name = domain['domain']
-                availability = domain['availability']
-                if availability == 'available':
-                    name = colored(name, 'blue', attrs=['bold'])
-                    symbol = colored(u"\u2713", 'green')
-                    if env.ascii:
-                        symbol = colored('A', 'green')
-                else:
-                    symbol = colored(u"\u2717", 'red')
-                    if env.ascii:
-                        symbol = colored('X', 'red')
-                    # The available flag should skip these.
-                    if env.available:
-                        continue
-                string = "%s  %s" % (symbol, name)
-                # Now, a few sanity checks before we add it to the output.
-                if env.tld:
-                    if self._tld_check(domain['domain']):
-                        output.append(string)
-                else:
-                    output.append(string)
-            return '\n'.join(output)
-        # Then the user wants information on a domain name.
-        return data
+        results = data['results']
+        if env.tld:
+            return [result['domain'] for result in results if self._tld_check(result['domain'])].sort()
+        else:
+            return [result['domain'] for result in results].sort()
+
+    def parse_status(self, content, env):
+        """Parse the relevant data from JSON."""
+        data = json.loads(content)
+        output = []
+        status = data['status']
+        for s in status:
+            name = s['domain']
+            status = s['status']
+            if status.endswith('inactive'):
+                name = colored(name, 'blue', attrs=['bold'])
+                symbol = colored(u"\u2713", 'green')
+                if env.ascii:
+                    symbol = colored('A', 'green')
+            else:
+                # The available flag should skip these.
+                if env.available:
+                    continue
+                symbol = colored(u"\u2717", 'red')
+                if env.ascii:
+                    symbol = colored('X', 'red')
+            string = "%s  %s" % (symbol, name)
+            output.append(string)
+        return output
 
     def _tld_check(self, name):
         """Make sure we're dealing with a top-level domain."""
@@ -80,4 +95,8 @@ class Domain(object):
 
     def main(self):
         args = self.environment()
-        print self.search(args)
+        if not args.no_suggest:
+            args.query = self.search(args)
+        status = self.status(args)
+        status.sort()
+
