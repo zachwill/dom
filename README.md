@@ -19,7 +19,7 @@ At the moment, it will throw a KeyError because the API is deprecated and doesn'
 
 1. Clone the repo:
 
-    `$ git clone git@github.com:seanlane/dom.git`
+    `$ git clone git@github.com:seanlane/dom.git`  
     `$ cd dom`
 
 2. Do one of the following:
