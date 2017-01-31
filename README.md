@@ -6,8 +6,6 @@ availability using [Domainr's JSON API v1](https://domainr.readme.io/v1.0/docs).
 
 ![](http://i.imgur.com/oijaG.png)
 
-Forked from [Zack Williams](https://github.com/zachwill/dom)
-
 Installation
 ------------
 
@@ -19,13 +17,13 @@ At the moment, it will throw a KeyError because the API is deprecated and doesn'
 
 1. Clone the repo:
 
-    `$ git clone git@github.com:seanlane/dom.git`  
+    `$ git clone git@github.com:zachwill/dom.git`  
     `$ cd dom`
 
 2. Do one of the following:
     
     a. Get a Mashape Domainr API key from [here](https://market.mashape.com/domainr/domainr)
-    Note: While it is free up to 10,000 calls/mo., you are required to submit a valid credit card to cover 
+    **Note:** While it is free up to 10,000 calls/mo., you are required to submit a valid credit card to cover 
     any requests over the free limit.
 
     b. Contact Domainr at `partners@domainr.com` to get a personal use client ID, as detailed [here](https://github.com/UltrosBot/Ultros-contrib/issues/29#issuecomment-135285713)
