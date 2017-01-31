@@ -27,11 +27,15 @@ setup(
     packages=[
         "domainr"
     ],
+    package_data = {
+        'domainr': ['domainr.ini']
+    },
     scripts=[
         "dom"
     ],
     tests_require=['mock'],
     install_requires=[
+        "configparser",
         "requests",
         "simplejson",
         "termcolor"

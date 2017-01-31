@@ -1,0 +1,5 @@
+build/*
+dist/*
+dom.egg-info/*
+config/domainr.ini
+*.pyc

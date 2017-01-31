@@ -1,26 +1,43 @@
 dom
 ===
 
-[![Build Status](https://secure.travis-ci.org/myusuf3/dom.png?branch=master)](http://travis-ci.org/myusuf3/dom)
-
 An easy-to-use command line utility for checking domain name
-availability using [Domainr's JSON API](https://github.com/domainr/api/wiki/V1-API).
+availability using [Domainr's JSON API v1](https://domainr.readme.io/v1.0/docs).
 
 ![](http://i.imgur.com/oijaG.png)
 
+Forked from [Zack Williams](https://github.com/zachwill/dom)
 
 Installation
 ------------
 
-If you want to use the package through `pip`, simply run:
+Previously, you could install and use the package through `pip` by simply running:
 
     pip install dom
 
-Or, if you'd prefer to clone the repo, run the following command:
+At the moment, it will throw a KeyError because the API is deprecated and doesn't handle the return value correctly. To use an updated version, perform the following steps:
 
-    git clone git@github.com:zachwill/dom.git
-    cd dom
-    python setup.py install
+1. Clone the repo:
+
+    `$ git clone git@github.com:seanlane/dom.git`  
+    `$ cd dom`
+
+2. Do one of the following:
+    
+    a. Get a Mashape Domainr API key from [here](https://market.mashape.com/domainr/domainr)
+    Note: While it is free up to 10,000 calls/mo., you are required to submit a valid credit card to cover 
+    any requests over the free limit.
+
+    b. Contact Domainr at `partners@domainr.com` to get a personal use client ID, as detailed [here](https://github.com/UltrosBot/Ultros-contrib/issues/29#issuecomment-135285713)
+
+4. Insert either the Mashape API key or the Client ID into the `domainr/domainr.ini` file as documented in the file comments.
+
+5. Run the following command to install:
+	`python setup.py install`
+
+6. To avoid accidentally publishing your API key, you can also perform the following command:
+	`git update-index --assume-unchanged domainr/domainr.ini`
+This will tell git to not expect any changes on your end and to ignore it when pushing changes.
 
 
 Optional Flags
