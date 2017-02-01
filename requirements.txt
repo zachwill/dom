@@ -1,5 +1,3 @@
-configparser
-mock
 requests
 simplejson
 termcolor

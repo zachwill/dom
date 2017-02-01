@@ -2,59 +2,35 @@
 
 import sys
 import unittest
-import simplejson as json
-from argparse import Namespace
-from mock import MagicMock
 from domainr import Domain
 
-content = '{"query":"google","results":[{"domain":"google","host":"","subdomain":"google","path":"","availability":"tld","register_url":"https://domainr.com/google/register"},{"domain":"google.com","host":"","subdomain":"google.com","path":"","availability":"taken","register_url":"https://domainr.com/google.com/register"},{"domain":"google.net","host":"","subdomain":"google.net","path":"","availability":"taken","register_url":"https://domainr.com/google.net/register"},{"domain":"google.org","host":"","subdomain":"google.org","path":"","availability":"taken","register_url":"https://domainr.com/google.org/register"},{"domain":"google.co","host":"","subdomain":"google.co","path":"","availability":"taken","register_url":"https://domainr.com/google.co/register"},{"domain":"goo.gle","host":"","subdomain":"goo.gle","path":"","availability":"unavailable","register_url":"https://domainr.com/goo.gle/register"},{"domain":"goo.gl","host":"","subdomain":"goo.gl","path":"/e","availability":"unavailable","register_url":"https://domainr.com/goo.gl/register"},{"domain":"go.gle","host":"","subdomain":"go.gle","path":"","availability":"unavailable","register_url":"https://domainr.com/go.gle/register"},{"domain":"goog","host":"","subdomain":"goog","path":"/le","availability":"tld","register_url":"https://domainr.com/goog/register"},{"domain":"go.gl","host":"","subdomain":"go.gl","path":"/e","availability":"unavailable","register_url":"https://domainr.com/go.gl/register"},{"domain":"g.gle","host":"","subdomain":"g.gle","path":"","availability":"unavailable","register_url":"https://domainr.com/g.gle/register"},{"domain":"goo","host":"","subdomain":"goo","path":"/gle","availability":"tld","register_url":"https://domainr.com/goo/register"},{"domain":"g.gl","host":"","subdomain":"g.gl","path":"/e","availability":"unavailable","register_url":"https://domainr.com/g.gl/register"},{"domain":"gg","host":"","subdomain":"gg","path":"/le","availability":"tld","register_url":"https://domainr.com/gg/register"}]}'
-parse_false_response = u'\x1b[31m\u2717\x1b[0m  google\n\x1b[31m\u2717\x1b[0m  google.com\n\x1b[31m\u2717\x1b[0m  google.net\n\x1b[31m\u2717\x1b[0m  google.org\n\x1b[31m\u2717\x1b[0m  google.co\n\x1b[31m\u2717\x1b[0m  goo.gle\n\x1b[31m\u2717\x1b[0m  goo.gl\n\x1b[31m\u2717\x1b[0m  go.gle\n\x1b[31m\u2717\x1b[0m  goog\n\x1b[31m\u2717\x1b[0m  go.gl\n\x1b[31m\u2717\x1b[0m  g.gle\n\x1b[31m\u2717\x1b[0m  goo\n\x1b[31m\u2717\x1b[0m  g.gl\n\x1b[31m\u2717\x1b[0m  gg'
-info_data = {'domain': 'google', 'whois_url': 'https://domainr.com/google/whois', 'subregistration_permitted': False, 'register_url': 'https://domainr.com/google/register', 'tld': {'domain': 'google', 'wikipedia_url': 'https://domainr.com/google/wikipedia', 'iana_url': 'https://domainr.com/google/iana'}, 'registrars': [], 'subdomains': [], 'host': '', 'path': '', 'www_url': 'https://domainr.com/google/www', 'query': 'google', 'subdomain': 'google', 'domain_idna': 'google', 'availability': 'tld'}
+
+search_result = ['goo', 'goo.gl', 'goo.gle', 'goog', 'google', 'google.com', 'google.net', 'google.org', 'google.us']
+status_result = ['\x1b[31m✗\x1b[0m  goo', '\x1b[31m✗\x1b[0m  goo.gl', '\x1b[31m✗\x1b[0m  goo.gle',
+                 '\x1b[31m✗\x1b[0m  goog', '\x1b[31m✗\x1b[0m  google', '\x1b[31m✗\x1b[0m  google.com',
+                 '\x1b[31m✗\x1b[0m  google.net', '\x1b[31m✗\x1b[0m  google.org', '\x1b[31m✗\x1b[0m  google.us']
+
 
 class TestDomain(unittest.TestCase):
 
-
     def setUp(self):
-        sys.argv = ['core.py','google']
-
+        sys.argv = ['core.py', 'google']
 
     def tearDown(self):
         sys.argv = []
 
-
-    def test_parse_info_false(self):
+    def test_search(self):
+        env = Domain._get_argparser().parse_args()
         domain = Domain()
-        result = domain.parse(content, False)
-        self.assertEquals(result, parse_false_response)
+        result = domain.search(env)
+        self.assertEquals(result, search_result)
 
-
-    def test_parse_info_true(self):
+    def test_status(self):
+        env = Domain._get_argparser().parse_args()
+        env.query = search_result
         domain = Domain()
-        result = domain.parse(content, True)
-        parse_true_response = json.loads(content)
-        self.assertEquals(result, parse_true_response)
-
-
-    def test_search_false(self):
-        environment = Namespace(info=False, query=['google'])
-        domain = Domain()
-        result = domain.search(environment)
-        self.assertEquals(result, parse_false_response)
-
-
-    def test_search_true(self):
-        environment = Namespace(info=True, query=['google'])
-        domain = Domain()
-        result = domain.search(environment)
-        self.assertEquals(result, info_data)
-
-
-    def test_flow(self):
-        mock = MagicMock(spec=Domain)
-        mock.main()
-        mock.environment.assert_called_once()
-        mock.search.assert_called_once()
-        mock.parse.assert_called_once
+        result = domain.status(env)
+        self.assertEquals(result, status_result)
 
 if __name__ == '__main__':
     unittest.main()

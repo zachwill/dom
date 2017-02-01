@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="dom",
-    version="0.7",
+    version="0.8",
     description="An easy-to-use command line utility for domain name lookups.",
     author="Zach Williams",
     author_email="hey@zachwill.com",
@@ -20,6 +20,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Utilities'
@@ -27,15 +28,10 @@ setup(
     packages=[
         "domainr"
     ],
-    package_data = {
-        'domainr': ['domainr.ini']
-    },
     scripts=[
         "dom"
     ],
-    tests_require=['mock'],
     install_requires=[
-        "configparser",
         "requests",
         "simplejson",
         "termcolor"
