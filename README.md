@@ -2,40 +2,59 @@ dom
 ===
 
 An easy-to-use command line utility for checking domain name
-availability using [Domainr's JSON API v1](https://domainr.readme.io/v1.0/docs).
+availability using [Domainr's JSON API](https://market.mashape.com/domainr/domainr V2 API).
 
-![](http://i.imgur.com/oijaG.png)
+
+![Example of dom in action](http://i.imgur.com/oijaG.png)
+
+Setup requires two things:
+
+1. Installing dom
+2. Obtaining an API key
+
 
 Installation
 ------------
 
-Previously, you could install and use the package through `pip` by simply running:
+The simplest method is to install the package through `pip` by running:
 
     pip install dom
 
-At the moment, it will throw a KeyError because the API is deprecated and doesn't handle the return value correctly. To use an updated version, perform the following steps:
+Alternatively, you can install from source:
 
 1. Clone the repo:
 
     `$ git clone git@github.com:zachwill/dom.git`  
     `$ cd dom`
 
-2. Do one of the following:
-    
-    a. Get a Mashape Domainr API key from [here](https://market.mashape.com/domainr/domainr)
-    **Note:** While it is free up to 10,000 calls/mo., you are required to submit a valid credit card to cover 
-    any requests over the free limit.
-
-    b. Contact Domainr at `partners@domainr.com` to get a personal use client ID, as detailed [here](https://github.com/UltrosBot/Ultros-contrib/issues/29#issuecomment-135285713)
-
-4. Insert either the Mashape API key or the Client ID into the `domainr/domainr.ini` file as documented in the file comments.
-
-5. Run the following command to install:
+2. Run the following command to install:
 	`python setup.py install`
 
-6. To avoid accidentally publishing your API key, you can also perform the following command:
-	`git update-index --assume-unchanged domainr/domainr.ini`
-This will tell git to not expect any changes on your end and to ignore it when pushing changes.
+
+Get an API key for Domainr
+--------------------------
+
+Due to abuse of their API, Domainr now requires an API key for each user. This key can be obtained through one
+of the following ways:
+
+1. Get a Mashape Domainr API key from the [Mashape Market](https://market.mashape.com/domainr/domainr)
+    **Note:** While it is free up to 10,000 calls/mo., you are required to submit a valid credit card to cover 
+    any requests over the free limit.
+2. Contact Domainr at `partners@domainr.com` to get a personal use client ID, as detailed 
+   [here](https://github.com/UltrosBot/Ultros-contrib/issues/29#issuecomment-135285713)
+3. Insert either the Mashape API key or the Client ID into your local environment:
+```
+$ export DOMAINR_MASHAPE_KEY={your-mashape-key}
+```
+or
+```
+$ export DOMAINR_CLIENT_ID={your-client-id}
+```
+
+You can do this manually everytime before running dom, or you can search for how to do this on login. Digital Ocean
+has an excellent guide here: [How To Read and Set Environmental and Shell Variables on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps).
+
+Note that in the event that both keys are present, dom will default to using the Mashape Key.
 
 
 Optional Flags
@@ -65,6 +84,14 @@ dom --available zachwill
 ✓  zachwill.co
 ✓  zachwill.io
 ✓  zachwill.me
+```
+
+The `--no-suggest` flag only check the exact domain names that are in query:
+
+```
+dom --no-suggest zachwill.com
+
+✗  zachwill.com
 ```
 
 And, the `--tld` flag only shows top-level domains:
