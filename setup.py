@@ -23,7 +23,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Topic :: Scientific/Engineering :: Information Analysis",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "Topic :: Utilitie",
+        "Topic :: Utilities",
     ],
     packages=[
         "domainr"
