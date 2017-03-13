@@ -40,9 +40,11 @@ of the following ways:
 1. Get a Mashape Domainr API key from the [Mashape Market](https://market.mashape.com/domainr/domainr)
     **Note:** While it is free up to 10,000 calls/mo., you are required to submit a valid credit card to cover 
     any requests over the free limit.
+    * You can use something like [Privacy.com](https://privacy.com/) to create a credit temporary card. I've been told that some banks offer a similar feature as well.
 2. Contact Domainr at `partners@domainr.com` to get a personal use client ID, as detailed 
    [here](https://github.com/UltrosBot/Ultros-contrib/issues/29#issuecomment-135285713)
-3. Insert either the Mashape API key or the Client ID into your local environment:
+
+Once you have obtained one of the two types of keys, insert either the Mashape API key or the Client ID into your local environment:
 ```
 $ export DOMAINR_MASHAPE_KEY={your-mashape-key}
 ```
