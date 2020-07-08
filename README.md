@@ -2,7 +2,7 @@ dom
 ===
 
 An easy-to-use command line utility for checking domain name
-availability using [Domainr's JSON API](https://market.mashape.com/domainr/domainr V2 API).
+availability using [Domainr's JSON API](https://rapidapi.com/domainr/api/domainr/).
 
 
 ![Example of dom in action](http://i.imgur.com/oijaG.png)
@@ -37,16 +37,16 @@ Get an API key for Domainr
 Due to abuse of their API, Domainr now requires an API key for each user. This key can be obtained through one
 of the following ways:
 
-1. Get a Mashape Domainr API key from the [Mashape Market](https://market.mashape.com/domainr/domainr)
+1. Get a Rapidapi Domainr API key from [Rapidapi](https://rapidapi.com/domainr/api/domainr/)
     **Note:** While it is free up to 10,000 calls/mo., you are required to submit a valid credit card to cover 
     any requests over the free limit.
     * You can use something like [Privacy.com](https://privacy.com/) to create a credit temporary card. I've been told that some banks offer a similar feature as well.
 2. Contact Domainr at `partners@domainr.com` to get a personal use client ID, as detailed 
    [here](https://github.com/UltrosBot/Ultros-contrib/issues/29#issuecomment-135285713)
 
-Once you have obtained one of the two types of keys, insert either the Mashape API key or the Client ID into your local environment:
+Once you have obtained one of the two types of keys, insert either the Rapidapi API key or the Client ID into your local environment:
 ```
-$ export DOMAINR_MASHAPE_KEY={your-mashape-key}
+$ export DOMAINR_RAPIDAPI_KEY={your-rapidapi-key}
 ```
 or
 ```
@@ -56,7 +56,7 @@ $ export DOMAINR_CLIENT_ID={your-client-id}
 You can do this manually everytime before running dom, or you can search for how to do this on login. Digital Ocean
 has an excellent guide here: [How To Read and Set Environmental and Shell Variables on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps).
 
-Note that in the event that both keys are present, dom will default to using the Mashape Key.
+Note that in the event that both keys are present, dom will default to using the Rapidapi Key.
 
 
 Optional Flags

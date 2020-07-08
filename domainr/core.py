@@ -15,10 +15,10 @@ class Domain(object):
 
     def __init__(self):
         """Instantiate class, grab credentials from env if available"""
-        if os.environ.get('DOMAINR_MASHAPE_KEY'):
-            self.api_key = os.environ.get('DOMAINR_MASHAPE_KEY')
-            self.api_key_name = 'mashape-key'
-            self.api_endpoint = "https://domainr.p.mashape.com"
+        if os.environ.get('DOMAINR_RAPIDAPI_KEY'):
+            self.api_key = os.environ.get('DOMAINR_RAPIDAPI_KEY')
+            self.api_key_name = 'rapidapi-key'
+            self.api_endpoint = "https://domainr.p.rapidapi.com"
         elif os.environ.get('DOMAINR_CLIENT_ID'):
             self.api_key = os.environ.get('DOMAINR_CLIENT_ID')
             self.api_key_name = 'client_id'
